@@ -3,8 +3,39 @@
     <head>
         <meta charset=utf-8>
         <title>Cats On Me!</title>
+        <link rel=stylesheet href=static/bootstrap.css>
+        <link rel=stylesheet href=static/bootstrap-responsive.css>
+        <link rel=stylesheet href=static/catson.css>
+        <script src=static/jquery.js></script>
+        <script src=static/catson.js></script>
+
     </head>
     <body>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <div class="nav-collapse">
+                        <ul class="nav">
+                            <a class="brand" href="/">CATS ON ME</a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="height: 40px;"></div>
+        <div class="container-fluid">
+            <canvas id="canvas" width="578" height="200"></canvas>
+            <div id="drop_zone"><p>picture of you goes here</p></div>
+        </div>
+
+        <script>
+            var faces = [];
+
+            // Setup the dnd listeners.
+            var dropZone = document.getElementById('drop_zone');
+            dropZone.addEventListener('dragover', handleDragOver, false);
+            dropZone.addEventListener('drop', handleFileSelect, false);
+        </script>
     </body>
 </html>
 
