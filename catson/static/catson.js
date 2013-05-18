@@ -15,6 +15,48 @@ var cats = [
 'https://d217f0ay5mnho1.cloudfront.net/14.png'
 ];
 
+function use_webcam() {
+  $('#dropzone_content').hide();
+  $('#webcam_content').show();
+
+  var video = document.querySelector('video');
+
+  // userGetMedia = (navigator.webkitGetUserMedia ? navigator.webkitGetUserMedia : navigator.getUserMedia);
+
+  // userGetMedia({video: true}, function(stream) {
+  //     video.src = window.URL.createObjectURL(stream);
+  //       localMediaStream = stream;
+  // },
+  // function(err) { console.log("This didn't go to plan"); }
+  // );
+  navigator.webkitGetUserMedia({video: true},
+      function(stream) {
+                    video.src = window.webkitURL.createObjectURL(stream);
+      },
+      function(erro) {
+        alert("camera isn't so good");
+        use_dropzone();
+      }
+      );
+}
+
+function take_snapshot() {
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+  var video = document.querySelector('video');
+
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  ctx.drawImage(video, 0, 0);
+  $('video').remove();
+  handleFileSelect(null);
+}
+
+function use_dropzone() {
+  $('#dropzone_content').show();
+  $('#webcam_content').hide();
+}
+
 function get_cat() {
   return cats[Math.floor(Math.random() * cats.length)];
 }
@@ -31,9 +73,12 @@ function cat_img(draw_cat) {
 }
 
 function handleFileSelect(evt) {
-  evt.stopPropagation();
-  evt.preventDefault();
+  if (evt !== null) {
+    evt.stopPropagation();
+    evt.preventDefault();
+  }
   $('#drop_zone').remove();
+  $('#webcam_content').remove();
 
   var exempt = [];
 
@@ -94,19 +139,27 @@ function handleFileSelect(evt) {
   var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
   var img = new Image();
-  img.src = URL.createObjectURL(evt.dataTransfer.files[0]);
-  img.onload = function() {
-    canvas.height = img.height;
-    canvas.width = img.width;
+  if (evt !== null) {
+    img.src = URL.createObjectURL(evt.dataTransfer.files[0]);
+    img.onload = function() {
+      canvas.height = img.height;
+      canvas.width = img.width;
 
-    ctx.drawImage(img, 0, 0);
+      ctx.drawImage(img, 0, 0);
 
+      var comp = ccv.detect_objects({ "canvas" : canvas,
+        "cascade" : cascade,
+        "interval" : 5,
+        "min_neighbors" : 1 });
+      post(comp);
+    };
+  } else {
     var comp = ccv.detect_objects({ "canvas" : canvas,
       "cascade" : cascade,
       "interval" : 5,
       "min_neighbors" : 1 });
     post(comp);
-  };
+  }
 }
 
 function handleDragOver(evt) {

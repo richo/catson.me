@@ -27,11 +27,33 @@
         <div style="height: 40px;"></div>
         <div class="container-fluid">
             <canvas id="canvas" width="578" height="200"></canvas>
-            <div id="drop_zone"><p>picture of you goes here</p></div>
+            <div id="webcam_content" style="display: none;">
+                <video autoplay></video>
+                <img src="">
+                <canvas style="display:none;"></canvas>
+                <button id="take_snapshot">Take pic</button>
+                <button id="enable_dropzone">use dropzone</button>
+            </div>
+            <div id="dropzone_content">
+                <div id="drop_zone"><p>picture of you goes here</p></div>
+                <button id="enable_webcam">use webcam</button>
+            </div>
         </div>
 
         <script>
             var faces = [];
+
+            $('#enable_webcam').on('click', function() {
+               use_webcam();
+            });
+
+            $('#take_snapshot').on('click', function() {
+                take_snapshot();
+            });
+
+            $('#enable_dropzone').on('click', function() {
+                use_dropzone();
+            });
 
 
             // Setup the dnd listeners.
