@@ -29,7 +29,8 @@ function use_webcam() {
   // },
   // function(err) { console.log("This didn't go to plan"); }
   // );
-  navigator.webkitGetUserMedia({video: true},
+  getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+  getUserMedia({video: true},
       function(stream) {
                     video.src = window.webkitURL.createObjectURL(stream);
       },
