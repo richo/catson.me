@@ -22,3 +22,18 @@ function handleDragOver(evt) {
   evt.preventDefault();
   evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
 }
+
+function number_of_cats() {
+  // Try to get it from the hostname
+  var cats = window.cats;
+
+  if (cats !== undefined)
+    return cats;
+
+  cats = parseInt(window.location.hostname.split(".")[0], 10);
+  if (isNaN(cats))
+    cats = Math.floor(Math.random() * 100);
+
+  window.cats = cats;
+  return cats;
+}
