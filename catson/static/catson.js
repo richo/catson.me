@@ -1,13 +1,18 @@
 var cats = [
-  'static/cats/1.png',
-  'static/cats/2.png',
-  'static/cats/3.png',
-  'static/cats/4.png',
-  'static/cats/5.png',
-  'static/cats/6.png',
-  'static/cats/7.png',
-  'static/cats/8.png',
-  'static/cats/9.png'
+'https://d217f0ay5mnho1.cloudfront.net/01.png',
+'https://d217f0ay5mnho1.cloudfront.net/02.png',
+'https://d217f0ay5mnho1.cloudfront.net/03.png',
+'https://d217f0ay5mnho1.cloudfront.net/04.png',
+'https://d217f0ay5mnho1.cloudfront.net/05.png',
+'https://d217f0ay5mnho1.cloudfront.net/06.png',
+'https://d217f0ay5mnho1.cloudfront.net/07.png',
+'https://d217f0ay5mnho1.cloudfront.net/08.png',
+'https://d217f0ay5mnho1.cloudfront.net/09.png',
+'https://d217f0ay5mnho1.cloudfront.net/10.png',
+'https://d217f0ay5mnho1.cloudfront.net/11.png',
+'https://d217f0ay5mnho1.cloudfront.net/12.png',
+'https://d217f0ay5mnho1.cloudfront.net/13.png',
+'https://d217f0ay5mnho1.cloudfront.net/14.png'
 ];
 
 function get_cat() {
