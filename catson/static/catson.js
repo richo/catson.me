@@ -33,12 +33,7 @@ function use_webcam() {
   getUserMedia({video: true},
       function(stream) {
                     video.src = window.webkitURL.createObjectURL(stream);
-      },
-      function(erro) {
-        alert("camera isn't so good");
-        use_dropzone();
-      }
-      );
+      });
 }
 
 function take_snapshot() {
