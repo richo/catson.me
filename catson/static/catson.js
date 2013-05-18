@@ -3,6 +3,27 @@ function handleFileSelect(evt) {
   evt.preventDefault();
   $('#drop_zone').remove();
 
+  function post(comp) {
+    // alert("done");
+    // document.getElementById("num-faces").innerHTML = comp.length.toString();
+    // document.getElementById("detection-time").innerHTML = Math.round((new Date()).getTime() - elapsed_time).toString() + "ms";
+    var scale = 100;
+    ctx.lineWidth = 20;
+    ctx.strokeStyle = 'rgba(125,125,125,0.8)';
+    /* draw detected area */
+    if (comp.length === 0) {
+      alert("No faces found");
+      return;
+    }
+    for (var i = 0; i < comp.length; i++) {
+      ctx.beginPath();
+      ctx.arc((comp[i].x + comp[i].width * 0.5) * scale, (comp[i].y + comp[i].height * 0.5) * scale,
+          (comp[i].width + comp[i].height) * 0.25 * scale * 1.2, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.strokeRect(comp[i].x,comp[i].y,comp[i].width,comp[i].height);
+    }
+  }
+
 
   var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
@@ -13,6 +34,12 @@ function handleFileSelect(evt) {
     canvas.width = img.width;
 
     ctx.drawImage(img, 0, 0);
+
+    var comp = ccv.detect_objects({ "canvas" : canvas,
+      "cascade" : cascade,
+        "interval" : 5,
+        "min_neighbors" : 1 });
+    post(comp);
   }
 
 }
