@@ -25,14 +25,18 @@
             </div>
         </div>
         <div style="height: 40px;"></div>
-        <div class="container-fluid">
-            <canvas id="canvas" width="578" height="200"></canvas>
+        <div class="container-fluid" style="margin: 0 auto; text-align: center;">
+            <canvas id="canvas" width="0" height="0"></canvas>
             <div id="webcam_content" style="display: none;">
                 <video autoplay></video>
                 <img src="">
-                <canvas style="display:none;"></canvas>
-                <button id="take_snapshot">Take pic</button>
-                <button id="enable_dropzone">use dropzone</button>
+                <div class="row">
+                    <canvas style="display:none;"></canvas>
+                </div>
+                <div class="row">
+                    <button id="take_snapshot">Take pic</button>
+                    <button id="enable_dropzone">use dropzone</button>
+                </div>
             </div>
             <div id="dropzone_content">
                 <div id="drop_zone"><p>picture of you goes here</p></div>
