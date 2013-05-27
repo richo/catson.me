@@ -67,13 +67,14 @@ function get_cat() {
   return cats[Math.floor(Math.random() * cats.length)];
 }
 
-function cat_img(draw_cat) {
+function cat_img(draw_cat, update_download) {
   var cat = get_cat();
   var img = new Image();
   // img.src = URL.createObjectURL(cat);
   img.src = cat;
   img.onload = function() {
     while (!draw_cat(img)) {}
+    update_download();
   };
   return img;
 }
@@ -98,6 +99,13 @@ function handleFileSelect(evt) {
     // document.getElementById("detection-time").innerHTML = Math.round((new Date()).getTime() - elapsed_time).toString() + "ms";
     var i;
     var scale = 100;
+    var canvas, download;
+
+    canvas = document.getElementById("canvas");
+    download = document.createElement("a");
+    $(download).html("Download yo catz");
+    download.setAttribute("download", "Catz");
+
     ctx.lineWidth = 20;
     ctx.strokeStyle = 'rgba(125,125,125,0.8)';
     /* draw detected area */
@@ -114,18 +122,12 @@ function handleFileSelect(evt) {
       exempt.push([comp[i].x,comp[i].y,comp[i].width,comp[i].height]);
     }
     var num_cats = number_of_cats();
+    var update_download_href = function() {
+        download.setAttribute("href", canvas.toDataURL());
+    };
     for (i = 0; i < num_cats; i++) {
-      cat_img(draw_cat);
+      cat_img(draw_cat, update_download_href);
     }
-    var canvas, download;
-    canvas = document.getElementById("canvas");
-
-    download = document.createElement("a");
-    $(download).html("Download yo catz").on('click', function(evt) {
-      download.setAttribute("href", canvas.toDataURL());
-    });
-    download.setAttribute("href", canvas.toDataURL());
-    download.setAttribute("download", "Catz");
 
     $("#download_content").append(download);
   }
