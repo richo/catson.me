@@ -117,6 +117,17 @@ function handleFileSelect(evt) {
     for (i = 0; i < num_cats; i++) {
       cat_img(draw_cat);
     }
+    var canvas, download;
+    canvas = document.getElementById("canvas");
+
+    download = document.createElement("a");
+    $(download).html("Download yo catz").on('click', function(evt) {
+      download.setAttribute("href", canvas.toDataURL());
+    });
+    download.setAttribute("href", canvas.toDataURL());
+    download.setAttribute("download", "Catz");
+
+    $("#download_content").append(download);
   }
 
   function draw_cat(cat) {
